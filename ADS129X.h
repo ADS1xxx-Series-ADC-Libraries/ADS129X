@@ -26,7 +26,6 @@
 #include "WProgram.h"
 #endif
 
-
 // SPI Command Definition Byte Assignments (Datasheet, pg. 35)
 #define ADS129X_CMD_WAKEUP  0x02 // Wake-up from standby mode
 #define ADS129X_CMD_STANDBY 0x04 // Enter Standby mode
