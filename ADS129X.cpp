@@ -231,13 +231,16 @@ void ADS129X::WREG(byte _address, byte _value) {
 /**
  * Read device ID.
  * @return device ID
+ * 7:5 100 = ADS129x device family, 110 = ADS129xR device family
+ * 4:3 10 
+ * 2:0 000 = 4-channel ADS1294 or ADS1294R, 001 = 6-channel ADS1296 or ADS1296R, 010 = 8-channel ADS1298 or ADS1298R
  */
 byte ADS129X::getDeviceId() {
     SPI.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE1));     
     digitalWrite(CS, LOW); //Low to communicate
-    SPI.transfer(ADS129X_CMD_RREG); //RREG
+    SPI.transfer(ADS129X_CMD_RREG); // RREG | 0
     SPI.transfer(0x00); //Asking for 1 byte
-    byte data = SPI.transfer(0x00); // byte to read (hopefully 0b???11110)
+    byte data = SPI.transfer(0x00); // byte to read
     delayMicroseconds(2);
     digitalWrite(CS, HIGH); //Low to communicate
     SPI.endTransaction();    
